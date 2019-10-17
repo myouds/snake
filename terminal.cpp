@@ -2,7 +2,6 @@
 #include <ncurses.h>
 #include "terminal.h"
 #include "drawable.h"
-#include <iostream>
 #include <list>
 #include <thread>
 
