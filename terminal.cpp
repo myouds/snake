@@ -37,9 +37,11 @@ void Window::sig_hdl(int sig) {
 }
 
 void Window::init_size() {
+    /*
+     * getmaxyx() sets its arguments to the vertical and horizontal
+     * size of the window - NOT the max x and y coordinates
+     */
     getmaxyx(stdscr, term_lines, term_columns);
-    term_lines++;
-    term_columns++;
 }
 
 int Window::get_cols() {

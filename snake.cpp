@@ -16,7 +16,7 @@ Snake::Snake(int len, Window& win): length(len), Drawable(win) {
     if (max_x > max_y) {
         direction = left;
         coord_tmp.y = max_y / 2;
-        for (int i = 1; i <= length; i++) {
+        for (int i = 0; i < length; i++) {
             coord_tmp.x = max_x - i;
             coords.push_front(coord_tmp);
         }
@@ -52,9 +52,9 @@ bool Snake::move() {
         case invalid:
             break;
     }
-    if (coord.x < 0 || coord.x >= window.get_cols() - 1)
+    if (coord.x < 0 || coord.x >= window.get_cols())
         return false;
-    if (coord.y < 0 || coord.y >= window.get_lines() - 1)
+    if (coord.y < 0 || coord.y >= window.get_lines())
         return false;
     for (coordinate c : coords) {
         if (c.x == coord.x && c.y == coord.y) {
