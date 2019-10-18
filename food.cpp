@@ -7,7 +7,6 @@ Food::Food(Window& win): Drawable(win) {
 
 void Food::initCoord() {
     coordinate coord;
-    srand(time(NULL));
     coord.x = rand() % window.get_cols();
     coord.y = rand() % window.get_lines();
     while(!coords.empty()) {

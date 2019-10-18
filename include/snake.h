@@ -16,7 +16,7 @@ class Snake: public Drawable {
     public:
         Snake(int len, Window& win);
         bool move();
-        bool chomp(std::list<Food*> food_items);
+        Food* chomp(std::list<Food*> food_items);
         bool change_direction(Direction dir);
         static Direction input_to_direction (int input);
     private:

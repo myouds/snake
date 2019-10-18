@@ -87,13 +87,13 @@ bool Snake::change_direction(Direction dir) {
     return true;
 }
 
-bool Snake::chomp(std::list<Food*> food_items) {
-    bool ret = false;
+Food* Snake::chomp(std::list<Food*> food_items) {
+    Food *ret = NULL;
     coordinate coord;
     coordinate food_coord;
 
     coord = coords.front();
-    for (Food* item: food_items) {
+    for (Food *item: food_items) {
         food_coord = item->coords.front();
         if (coord.x == food_coord.x && coord.y == food_coord.y) {
             /*
@@ -108,7 +108,7 @@ bool Snake::chomp(std::list<Food*> food_items) {
              */
             coords.push_back(coords.back());
             length++;
-            ret = true;
+            ret = item;
             /*
              * Tell the Food item to respawn somewhere else
              */
