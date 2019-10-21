@@ -2,7 +2,7 @@
 #include "snake.h"
 #include "food.h"
 
-Snake::Snake(int len, Window& win): length(len), Drawable(win) {
+Snake::Snake(int len, terminal::Window& win): length(len), Drawable(win) {
     unsigned max_x,
              max_y;
     coordinate coord_tmp;

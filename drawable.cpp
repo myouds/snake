@@ -1,6 +1,6 @@
 #include "drawable.h"
 
-Drawable::Drawable(Window& win): window(win) {
+Drawable::Drawable(terminal::Window& win): window(win) {
     window.register_item(this);
 }
 

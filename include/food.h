@@ -5,7 +5,7 @@
 
 class Food: public Drawable {
     public:
-        Food(Window& win);
+        Food(terminal::Window& win);
         void initCoord();
 };
 

@@ -14,7 +14,7 @@ class Food;
 
 class Snake: public Drawable {
     public:
-        Snake(int len, Window& win);
+        Snake(int len, terminal::Window& win);
         bool move();
         Food* chomp(std::list<Food*> food_items);
         bool change_direction(Direction dir);

@@ -6,11 +6,11 @@
 
 class Drawable {
     public:
-        Drawable(Window& win);
+        Drawable(terminal::Window& win);
         ~Drawable();
         std::list<coordinate> coords;
     protected:
-        Window& window;
+        terminal::Window& window;
 };
 
 #endif

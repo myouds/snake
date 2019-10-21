@@ -1,7 +1,7 @@
 #include "food.h"
 #include "terminal.h"
 
-Food::Food(Window& win): Drawable(win) {
+Food::Food(terminal::Window& win): Drawable(win) {
     initCoord();
 }
 

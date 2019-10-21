@@ -13,7 +13,7 @@ int main(int argc, char **argv){
     /*
      * Need a Window object to display our items
      */
-    Window terminal = Window();
+    terminal::Window& terminal = terminal::get_window();
     /*
      * Now add a snake and some food to the window
      * Add the food to a list that we will use to tell the
@@ -63,7 +63,7 @@ int main(int argc, char **argv){
          * If the user has given some valid input to change
          * direction, change the Snake's direction now
          */
-        if ((input = Window::get_input()) != 0) {
+        if ((input = terminal.get_input()) != 0) {
             dir = Snake::input_to_direction(input);
             snake.change_direction(dir);
         }
