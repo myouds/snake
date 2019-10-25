@@ -27,6 +27,10 @@ int main(int argc, char **argv){
     for(bool go = true; go == true; go = snake.move()) {
         terminal.draw();
         if ((chomped = snake.chomp(food_list)) != NULL) {
+            /*
+             * Chomped, so increment the game score
+             */
+            terminal.increment_score();
             if (food_list.size() > 1) {
                 /*
                  * We have multiple Food objects and one just got chomped
@@ -68,5 +72,7 @@ int main(int argc, char **argv){
             snake.change_direction(dir);
         }
     }
+    terminal.game_over();
+    sleep(3);
     return 0;
 }

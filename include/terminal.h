@@ -22,6 +22,8 @@ namespace terminal {
             void draw();
             void register_item(Drawable *item);
             void deregister_item(Drawable *item);
+            void increment_score(int num_to_add = 1);
+            void game_over();
             int get_input();
         private:
             ::WINDOW *game_scr;
@@ -29,9 +31,11 @@ namespace terminal {
             std::list<Drawable*> drawables;
             int term_columns;
             int term_lines;
+            int score;
             std::atomic_int last_input;
             void watch_input();
             void input_watcher();
+            void write_score();
     };
     Window& get_window();
 }

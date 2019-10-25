@@ -10,9 +10,7 @@ namespace terminal {
         switch(sig) {
             case SIGWINCH:
                 endwin();
-                refresh();
                 get_window().init_size();
-                keypad(stdscr, TRUE);
                 ;;
             default:
                 ;;
@@ -31,9 +29,12 @@ namespace terminal {
         game_scr = newwin(0, 0, 0, 0);
         score_scr = newwin(0, 0, 0, 0);
         init_size();
+        start_color();
         signal(SIGWINCH, sig_hdl);
         watch_input();
         clear_term();
+        score = 0;
+        write_score();
     }
 
     Window::~Window() {
@@ -45,8 +46,16 @@ namespace terminal {
         * getmaxyx() sets its arguments to the vertical and horizontal
         * size of the window - NOT the max x and y coordinates
         */
-        getmaxyx(stdscr, term_lines, term_columns);
-
+        int full_lines;
+        int full_columns;
+        getmaxyx(stdscr, full_lines, full_columns);
+        term_lines = full_lines - 3;
+        term_columns = full_columns;
+        wresize(game_scr, term_lines, term_columns);
+        wresize(score_scr, full_lines - term_lines, full_columns);
+        wborder(score_scr, '.', '.', '.', '.', '.', '.', '.', '.');
+        mvwin(score_scr, term_lines, 0);
+        wrefresh(score_scr);
     }
 
     int Window::get_cols() {
@@ -58,7 +67,7 @@ namespace terminal {
     }
 
     void Window::clear_term() {
-        clear();
+        wclear(game_scr);
     }
 
     void Window::register_item(Drawable *item) {
@@ -73,17 +82,35 @@ namespace terminal {
         clear_term();
         for (Drawable *item : drawables) {
             for (coordinate coord : item->coords) {
-                move(coord.y, coord.x);
-                waddch(stdscr, '*');
+                wmove(game_scr, coord.y, coord.x);
+                waddch(game_scr, '*');
             }
         }
-        wrefresh(stdscr);
+        wrefresh(game_scr);
+    }
+
+    void Window::increment_score(int num_to_add) {
+        score += num_to_add;
+        write_score();
+    }
+
+    void Window::write_score() {
+        mvwprintw(score_scr, 1, 2, "Score: %i", score);
+        wrefresh(score_scr);
+    }
+
+    void Window::game_over() {
+        start_color();
+        init_pair(1, COLOR_RED, COLOR_BLACK);
+        wattron(game_scr, COLOR_PAIR(1));
+        draw();
+        wattroff(game_scr, COLOR_PAIR(1));
     }
 
     void Window::input_watcher() {
-        keypad(stdscr, TRUE);
+        keypad(game_scr, TRUE);
         while (1) {
-            last_input = getch();
+            last_input = wgetch(game_scr);
         }
     }
 
